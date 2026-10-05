@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>買い物リスト</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>買い物リスト</h1>
+  </header>
+
+  <main>
+    <!-- 入力エリア -->
+    <section class="add-item">
+      <form id="item-form">
+        <input type="date" id="date-input" aria-label="日付" required>
+        <!-- value はデータベースの categories の id と同じ番号にする -->
+        <!-- サーバーにつながったときは、script.js がデータベースの内容で作り直す -->
+        <select id="category-input" aria-label="カテゴリー" required>
+          <option value="" disabled selected>カテゴリー</option>
+          <option value="1">乳製品・卵</option>
+          <option value="2">日用品</option>
+          <option value="3">野菜・果物</option>
+          <option value="4">肉・魚</option>
+          <option value="5">米・パン・麺</option>
+          <option value="6">調味料</option>
+          <option value="7">飲み物</option>
+          <option value="8">お菓子</option>
+          <option value="9">冷凍食品</option>
+          <option value="10">薬・衛生用品</option>
+        </select>
+        <input type="text" id="name-input" placeholder="買うものを入力" aria-label="買うもの" required>
+        <button type="submit" id="add-button">追加</button>
+      </form>
+    </section>
+
+    <!-- 一覧エリア（日付ごとにまとめて表示） -->
+    <section class="list-section">
+      <p id="empty-message" class="empty-message">まだ何もありません</p>
+      <div id="list"></div>
+    </section>
+  </main>
+
+  <!-- 日付グループのひな形 -->
+  <template id="group-template">
+    <section class="date-group">
+      <h2 class="date-heading"></h2>
+      <ul class="item-list"></ul>
+    </section>
+  </template>
+
+  <!-- 1品目のひな形 -->
+  <template id="item-template">
+    <li class="item">
+      <label class="item-check">
+        <input type="checkbox" class="item-checkbox">
+        <span class="item-name"></span>
+      </label>
+      <span class="item-category"></span>
+      <button type="button" class="delete-button" aria-label="削除">×</button>
+    </li>
+  </template>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

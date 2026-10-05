@@ -1,0 +1,197 @@
+/* 色はここにまとめておく（色味の相談後にここだけ変えればOK） */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #333333;
+  --color-sub: #888888;
+  --color-border: #e0e0e0;
+  --color-item-bg: #fafafa;
+  --color-accent: #555555;
+  --color-accent-hover: #333333;
+  --color-delete: #999999;
+  --color-delete-hover: #333333;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+header {
+  text-align: center;
+  padding: 24px 16px 8px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: 0.08em;
+}
+
+main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 16px 16px 48px;
+}
+
+/* 入力エリア */
+.add-item {
+  margin-bottom: 28px;
+}
+
+/* 1段目: 日付・カテゴリー ／ 2段目: 買うもの・追加ボタン */
+#item-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+#date-input,
+#category-input {
+  flex: 1 1 40%;
+  min-width: 0;
+}
+
+#item-form input,
+#item-form select {
+  padding: 10px 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+#item-form input:focus,
+#item-form select:focus {
+  border-color: var(--color-accent);
+}
+
+#name-input {
+  flex: 1 1 60%;
+  min-width: 0;
+}
+
+#add-button {
+  background-color: var(--color-accent);
+  color: #fff;
+  border: none;
+  padding: 0 20px;
+  font-size: 1rem;
+  font-family: inherit;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s ease;
+}
+
+#add-button:hover {
+  background-color: var(--color-accent-hover);
+}
+
+/* 一覧 */
+.empty-message {
+  text-align: center;
+  color: var(--color-sub);
+}
+
+.date-group {
+  margin-bottom: 24px;
+}
+
+.date-heading {
+  margin: 0 0 8px;
+  padding-bottom: 4px;
+  font-size: 0.95rem;
+  font-weight: normal;
+  color: var(--color-sub);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  background-color: var(--color-item-bg);
+  border-radius: 6px;
+}
+
+.item-check {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.item-checkbox {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.item-name {
+  word-break: break-word;
+}
+
+/* カテゴリーのラベル */
+.item-category {
+  flex-shrink: 0;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  color: var(--color-sub);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* チェック済み */
+.item.checked .item-name {
+  text-decoration: line-through;
+  color: var(--color-sub);
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: var(--color-delete);
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.delete-button:hover {
+  color: var(--color-delete-hover);
+  background-color: var(--color-border);
+}
+
+/* スマホ幅 */
+@media (max-width: 480px) {
+  #add-button {
+    padding: 10px 16px;
+  }
+}
