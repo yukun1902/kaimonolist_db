@@ -223,6 +223,23 @@ func deleteItem(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+// allowCORS は、HTMLを直接開いたとき（別の場所の画面）からでもAPIを使えるようにする
+// ブラウザは、別の場所からのリクエストを、サーバーが許可したときだけ通す
+func allowCORS(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+		// 本番のリクエストの前に、ブラウザが「送っていい？」と確認してくる（OPTIONS）ので、OKと返す
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
+}
+
 func main() {
 	// .env ファイルを読み込んで環境変数にセットする
 	if err := godotenv.Load(); err != nil {
@@ -263,5 +280,5 @@ func main() {
 	fmt.Println("サーバーを起動しました: http://localhost:8080")
 
 	// 8080番ポートでサーバーを起動する（エラーが起きたら終了する）
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", allowCORS(http.DefaultServeMux)))
 }

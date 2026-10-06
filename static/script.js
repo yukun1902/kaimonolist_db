@@ -7,6 +7,10 @@ const emptyMessage = document.getElementById('empty-message');
 const groupTemplate = document.getElementById('group-template');
 const itemTemplate = document.getElementById('item-template');
 
+// サーバーの場所
+// http://localhost:8080 から開いたときはそのまま、HTMLを直接開いたときなどはサーバーのURLを付ける
+const API_BASE = location.host === 'localhost:8080' ? '' : 'http://localhost:8080';
+
 // サーバー（データベース）から読み込んだデータ
 // 1件の形: { id: 1, name: "牛乳", category_id: 1, purchase_date: "2026-10-05", is_purchased: false }
 let items = [];
@@ -67,7 +71,7 @@ list.addEventListener('click', async (event) => {
 // 成功したら返ってきたデータ（削除のときは true）を、失敗したら null を返す
 async function api(method, path, body) {
   try {
-    const response = await fetch(path, {
+    const response = await fetch(API_BASE + path, {
       method,
       headers: body ? { 'Content-Type': 'application/json' } : {},
       body: body ? JSON.stringify(body) : undefined,
